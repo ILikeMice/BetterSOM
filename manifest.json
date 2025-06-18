@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "SummerExporter™",
+    "description": "Extension to export your Devlogs from https://summer.hackclub.com/",
+    "version": "1.0",
+    "action": {
+      "default_icon": "icon.png",
+      "default_title": "SummerExporter™"
+    },
+    "permissions": [
+        "storage",
+        "tabs",
+        "webNavigation",
+        "webRequest"
+    ],
+    
+    "icons": {
+        "16": "icon.png",
+        "32": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "js": ["src/jszip.min.js", "src/FileSaver.min.js", "src/main.js"],
+            "matches": [
+                "https://summer.hackclub.com/*"
+            ]
+        }
+    ]
+}
