@@ -105,12 +105,18 @@ function exportlog() {
         let logdate = monthago + " " + dayago
         console.log(description.innerText)  
 
+        
+        let imageurl = item.querySelector("img.w-full.object-contain.cursor-pointer.hover\\:opacity-90.transition-opacity.rounded-lg.max-h-96").src
+        
+        
 
         let logtext = ""
         if (lastdate != logdate) {
             logtext += "# " + logdate + "\n"
             lastdate = logdate
         }
+        
+        logtext += "![image](" + imageurl + ")"
         logtext += description.innerText + "\n\n"
 
 
@@ -120,7 +126,7 @@ function exportlog() {
     zip.file("SOM.md", markdowncontent)
 
     zip.generateAsync({type:"blob"}).then(function(content) {
-        saveAs(content, "test.zip")
+        saveAs(content, "Export.zip")
     })
    console.log(markdowncontent)
 }
