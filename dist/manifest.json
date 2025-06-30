@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "BetterSOM™",
-    "description": "Extension to export your Devlogs from https://summer.hackclub.com/",
+    "description": "Extension to export your Devlogs from https://summer.hackclub.com/ & more!",
     "version": "1.0",
     "action": {
       "default_icon": "icon.png",
