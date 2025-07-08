@@ -40,10 +40,11 @@ function check() {
 
 function projects() {
     let btndiv = document.querySelector("div.ml-4.flex.flex-wrap.items-center.gap-6")
-    console.log(btndiv)
-    if (document.getElementById("BSOM_export") != null) {
+    
+    if (document.getElementById("BSOM_export") == null) {
         let exportbtn = `<div class="cursor-pointer h-min"> <button id="BSOM_export" type="button" class="relative inline-block group py-2 cursor-pointer "> <span class="relative z-10 flex items-center space-x-2"> <img src="https://icons.hackclub.com/api/icons/black/share" width="32" height="32" viewBox="0 0 24 24" class="w-6 h-6"></img> <span class="text-nowrap tracking-tight"> Export! </span></span> <div class="absolute transition-all duration-150 bottom-1 w-full pr-3 box-content bg-[#C7A077] rounded-full z-0 group-hover:opacity-100 h-4 -right-[6px] opacity-0" data-kind="underline"></div> </button> </div>`
         btndiv.insertAdjacentHTML("afterbegin", exportbtn)
+        console.log(btndiv)
         document.getElementById("BSOM_export").onclick = () => {
             exportlog()
         }
@@ -62,23 +63,27 @@ function exportlog() {
         console.log(item.id)
         const selector = "." + CSS.escape("text-[#B89576]")
         const element = item.querySelector(selector);
-        //console.log(element)
+
+        console.log(item)
+        console.log(element)
+        
         let time = element.querySelectorAll("span")
         let timespent = time[0].innerText
         let timeago = time[2].innerText.split(" ")[0]
         //console.log(timespent)
-        //console.log(timeago.toString())
+        console.log(timeago.toString())
 
         if (timeago.includes("h")) {
-            timeago = timeago.split("")[0] * 3600000
+            timeago = timeago.split("h")[0] * 3600000
+            console.log(timeago + " hours")
         } else if (timeago.includes("m")) {
-            timeago = timeago.split("")[0] * 60000
+            timeago = timeago.split("m")[0] * 60000
+            console.log(timeago + " minutes")
         } else if(timeago.includes("d")) {
-            timeago = timeago.split("")[0] * 86400000
-        } else if (timeago.includes("w")) { // guesstimation tht weeks is gonna be w :P
-            timeago = timeago.split("")[0] * 604800000
+            timeago = timeago.split("d")[0] * 86400000
+            console.log(timeago + " days")
         }
-        //console.log(timeago)
+        console.log(timeago)
         let dateago = new Date(Date.now() - timeago)
         
         let monthNames = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "December"]
@@ -97,7 +102,11 @@ function exportlog() {
             dayago += "th"
         }
 
-        let description = item.querySelector("p")
+        
+        
+        description = item.querySelector('div[data-devlog-card-target="content"]');
+        console.log(description)
+
 
         let logdate = monthago + " " + dayago
         console.log(description.innerText)  
@@ -109,12 +118,12 @@ function exportlog() {
 
         let logtext = ""
         if (lastdate != logdate) {
-            logtext += "# " + logdate + "\n"
+            logtext += "# " + logdate + "<br>\n"
             lastdate = logdate
         }
         
-        logtext += "![image](" + imageurl + ")"
-        logtext += description.innerText + "\n\n"
+        logtext += "![image](" + imageurl + ")" + "<br>\n"
+        logtext += description.innerText + "<br><br>\n"
 
 
         markdowncontent += logtext
