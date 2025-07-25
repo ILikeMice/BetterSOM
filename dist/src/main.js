@@ -39,7 +39,7 @@ function check() {
 }
 
 function projects() {
-    let btndiv = document.querySelector("div.ml-4.flex.flex-wrap.items-center.gap-6")
+    let btndiv = document.querySelector("div.flex.items-center.space-x-3.md\\:space-x-4.md\\:ml-4")
     
     if (document.getElementById("BSOM_export") == null) {
         let exportbtn = `<div class="cursor-pointer h-min"> <button id="BSOM_export" type="button" class="relative inline-block group py-2 cursor-pointer "> <span class="relative z-10 flex items-center space-x-2"> <img src="https://icons.hackclub.com/api/icons/black/share" width="32" height="32" viewBox="0 0 24 24" class="w-6 h-6"></img> <span class="text-nowrap tracking-tight"> Export! </span></span> <div class="absolute transition-all duration-150 bottom-1 w-full pr-3 box-content bg-[#C7A077] rounded-full z-0 group-hover:opacity-100 h-4 -right-[6px] opacity-0" data-kind="underline"></div> </button> </div>`
