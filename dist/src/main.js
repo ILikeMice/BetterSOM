@@ -59,29 +59,37 @@ function exportlog() {
     let devlogs = devlogsdiv.querySelectorAll(".ml-4.relative")
     let lastdate = ""
     
+    let readmores = document.querySelectorAll(".text-nice-blue.hover\\:text-dark-blue.font-medium.transition-colors.duration-200.cursor-pointer.hover\\:underline")
+
+    readmores.forEach(async (readmore)=>{ // removes read more thingis bc that fucks up my devlogging rahhhh
+        readmore.click()
+    })
+
     devlogs.forEach(async (item)=>{
         console.log(item.id)
-        const selector = "." + CSS.escape("text-[#B89576]")
+        const selector = "." + CSS.escape("text-som-detail")
         const element = item.querySelector(selector);
 
         console.log(item)
         console.log(element)
-        
-        let time = element.querySelectorAll("span")
-        let timespent = time[0].innerText
-        let timeago = time[2].innerText.split(" ")[0]
+
+        let timeago = element.querySelectorAll("span")[2].querySelector("a").innerText
+        let timespent = element.querySelectorAll("span")[0].innerText
         //console.log(timespent)
         console.log(timeago.toString())
 
-        if (timeago.includes("h")) {
+        if (timeago.includes("hour")) {
             timeago = timeago.split("h")[0] * 3600000
             console.log(timeago + " hours")
-        } else if (timeago.includes("m")) {
+        } else if (timeago.includes("minute")) {
             timeago = timeago.split("m")[0] * 60000
             console.log(timeago + " minutes")
-        } else if(timeago.includes("d")) {
+        } else if(timeago.includes("day")) {
             timeago = timeago.split("d")[0] * 86400000
             console.log(timeago + " days")
+        } else if (timeago.includes("month")) {
+            timeago = Number(timeago.split(" ")[1]) * 2628000000 
+            console.log(timeago + " months")
         }
         console.log(timeago)
         let dateago = new Date(Date.now() - timeago)
@@ -101,20 +109,16 @@ function exportlog() {
         } else {
             dayago += "th"
         }
-
-        
         
         description = item.querySelector('div[data-devlog-card-target="content"]');
         console.log(description)
-
 
         let logdate = monthago + " " + dayago
         console.log(description.innerText)  
 
         
         let imageurl = item.querySelector("img.w-full.object-contain.cursor-pointer.hover\\:opacity-90.transition-opacity.rounded-lg.max-h-96").src
-        
-        
+
 
         let logtext = ""
         if (lastdate != logdate) {
@@ -123,7 +127,8 @@ function exportlog() {
         }
         
         logtext += "![image](" + imageurl + ")" + "<br>\n"
-        logtext += description.innerText + "<br><br>\n"
+        logtext += description.innerText + "<br>\n"
+        logtext += "**Time spent: " + timespent.trim() + "** <br><br>\n"
 
 
         markdowncontent += logtext
